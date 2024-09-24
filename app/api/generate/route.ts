@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 export const runtime = "edge"
 // Initialize OpenAI with your API Key
 const openai = new OpenAI({
-  apiKey: process.env.OPEN_AI_KEY,  // Replace with your OpenAI Key environment variable
+  apiKey: process.env.OPENAI_API_KEY,  // Replace with your OpenAI Key environment variable
   dangerouslyAllowBrowser: true,    // For client-side requests if needed
 });
 
