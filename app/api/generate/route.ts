@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       model: "dall-e-2",
       prompt,
       n: 1,
-      size: "512x512",
+      size: "256x256",
     });
 
     if (response && response.data && response.data.length > 0) {
