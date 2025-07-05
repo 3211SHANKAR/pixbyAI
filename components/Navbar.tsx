@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import Link from "next/link";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Navbar = () => {
   return (
@@ -9,6 +10,10 @@ const Navbar = () => {
                   PixAI
               </Link>
               <div className=" flex justify-between items-center gap-4 sm:gap-8 ">
+                  <DarkModeToggle />
+                  <Link href={"/avatar"} className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white rounded-lg px-3 py-2 font-bold shadow hover:from-indigo-600 hover:to-pink-600 transition">
+                      🧑‍🎨 Avatar
+                  </Link>
                   <Link href={"/favorites"} className=" hover:bg-slate-200 text-indigo-500  transition-all ease-linear p-2 rounded-full ">
                       <Heart size={28} />
                   </Link>
