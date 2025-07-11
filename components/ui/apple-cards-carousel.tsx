@@ -16,6 +16,7 @@ import {
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Image, { ImageProps } from "next/image";
+import { useCallback } from "react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { DownloadIcon, EyeIcon } from "lucide-react";
 
@@ -156,30 +157,30 @@ export const Card = ({
 }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose} = useContext(CarouselContext);
 
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
+const handleClose = useCallback(() => {
+  setOpen(false);
+  onCardClose(index);
+}, [onCardClose, index]);
+
+
+useEffect(() => {
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      handleClose();
+    }
   };
 
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        handleClose();
-      }
-    };
+  if (open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
 
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
-
+  window.addEventListener("keydown", onKeyDown);
+  return () => window.removeEventListener("keydown", onKeyDown);
+}, [open, handleClose]);
   useOutsideClick(containerRef, () => handleClose());
 
   return (

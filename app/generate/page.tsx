@@ -72,7 +72,7 @@ function Page() {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-    } catch (e) {
+    } catch {
       alert("Download failed.");
     }
   };
@@ -99,7 +99,7 @@ function Page() {
           <textarea
             className="block p-2.5 w-full text-lg bg-background text-foreground rounded-lg border-2 border-indigo-300 dark:border-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             placeholder={placeholder}
-            onChange={(event) => setPrompt(event.target.value)}
+            onChange={({target}) => setPrompt(target.value)}
             rows={4}
             value={prompt}
             required

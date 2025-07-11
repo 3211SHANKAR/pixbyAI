@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Navbar from "@/components/Navbar";
-import Image from 'next/image';
+// import Image from 'next/image';
 
 export default function AvatarGenerator() {
   const [prompt, setPrompt] = React.useState("");
@@ -36,7 +36,7 @@ export default function AvatarGenerator() {
             className="flex-1 border-2 border-indigo-300 dark:border-indigo-700 rounded-lg px-4 py-2 text-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-indigo-400"
             placeholder="Describe your Avatar (e.g. futuristic robot, 3D cat)"
             value={prompt}
-            onChange={e => setPrompt(e.target.value)}
+            onChange={event => setPrompt(event.target.value)}
             onKeyDown={e => e.key === 'Enter' && generateAvatar()}
           />
           <button
@@ -51,7 +51,8 @@ export default function AvatarGenerator() {
           <div className="mt-6 flex flex-col items-center">
             <div className="w-48 h-48 rounded-2xl bg-gradient-to-br from-indigo-100 via-white to-pink-100 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center shadow-lg border-4 border-indigo-200 dark:border-indigo-700">
              
-         <Image src={avatarUrl} alt="Preview" width={200} height={200} />
+         <img src={image} alt="Preview" width={200} height={200} />
+
 
             </div>
             <button
