@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { ImageIcon } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Image from "next/image";
 import Link from "next/link";
 
 function Page() {
@@ -72,7 +71,7 @@ function Page() {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-    } catch {
+    } catch (e) {
       alert("Download failed.");
     }
   };
@@ -99,7 +98,7 @@ function Page() {
           <textarea
             className="block p-2.5 w-full text-lg bg-background text-foreground rounded-lg border-2 border-indigo-300 dark:border-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             placeholder={placeholder}
-            onChange={({target}) => setPrompt(target.value)}
+            onChange={(e) => setPrompt(e.target.value)}
             rows={4}
             value={prompt}
             required
@@ -131,13 +130,12 @@ function Page() {
 
           {isImage && (
             <div className="flex flex-col justify-center items-center gap-6 rounded-lg">
-             <Image
-  className="result-image shadow-lg shadow-cyan-200/10 rounded-lg max-w-xs max-h-80 object-contain bg-white dark:bg-gray-900 border-2 border-indigo-200 dark:border-indigo-700"
-  src={result}
-  alt="result"
-  width={300}
-  height={300}
-/>
+              <img
+                loading="lazy"
+                className="result-image shadow-lg shadow-cyan-200/10 rounded-lg max-w-xs max-h-80 object-contain bg-white dark:bg-gray-900 border-2 border-indigo-200 dark:border-indigo-700"
+                src={result}
+                alt="result"
+              />
               <button
                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
                 onClick={handleDownload}

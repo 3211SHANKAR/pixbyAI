@@ -103,7 +103,7 @@ const Content = ({data}: {data:Hit}) => {
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
-        } catch {
+        } catch (e) {
             alert("Failed to download image.");
         }
     };
