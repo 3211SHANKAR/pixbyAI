@@ -150,7 +150,7 @@ function Page() {
       <span className="w-full text-center mx-auto my-10 p-2 text-sm font-semibold relative z-10">
         Developed by{" "}
         <Link
-          href={"https://github.com/harsh3dev/pixai"}
+          href={"https://github.com/3211SHANKAR/pixbyAI"}
           target="_blank"
           className="text-indigo-700 hover:underline"
         >

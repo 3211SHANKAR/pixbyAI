@@ -16,7 +16,7 @@ export default function Home() {
         <HomeImages/>
       </div>
       <span className=" w-full absolute bottom-0 left-0 text-center mx-auto my-10 p-2 text-sm font-semibold ">
-        Developed by <Link href={'https://github.com/harsh3dev/pixai'} target="_blank" className="text-indigo-700 hover:underline hover:underline-offset-4 decoration-slice " >Harsh Pandey X Gourishankar</Link>
+        Developed by <Link href={'https://github.com/3211SHANKAR/pixbyAI.git'} target="_blank" className="text-indigo-700 hover:underline hover:underline-offset-4 decoration-slice " >Harsh Pandey X Gourishankar</Link>
       </span>
     </main>
   );
