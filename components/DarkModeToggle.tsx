@@ -34,7 +34,7 @@ export default function DarkModeToggle() {
       className="p-2 rounded-full border bg-white dark:bg-gray-900 dark:text-white text-gray-900 shadow hover:bg-gray-100 dark:hover:bg-gray-800 transition"
       aria-label="Toggle dark mode"
     >
-      {isDark ? "🌙" : "☀️"}
+      {isDark ? "☀️":"🌙"}
     </button>
   );
 }
