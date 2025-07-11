@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     const imageUrl = `data:${contentType};base64,${base64}`;
 
     return NextResponse.json({ imageUrl });
-  } catch (error: any) {
+  } catch (error) {
     console.error('❌ Server error while generating image:', error);
     return NextResponse.json(
       {

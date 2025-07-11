@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+
 import React, {
   useEffect,
   useRef,
@@ -60,20 +60,16 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   };
 
   const scrollLeft = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
+    carouselRef.current?.scrollBy({ left: -300, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
+    carouselRef.current?.scrollBy({ left: 300, behavior: "smooth" });
   };
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const cardWidth = isMobile() ? 230 : 384;
       const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
@@ -85,7 +81,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   };
 
   const isMobile = () => {
-    return window && window.innerWidth < 768;
+    return typeof window !== "undefined" && window.innerWidth < 768;
   };
 
   return (
@@ -98,24 +94,12 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
           ref={carouselRef}
           onScroll={checkScrollability}
         >
-          <div
-            className={cn(
-              "absolute right-0  h-auto  w-[5%] overflow-hidden bg-gradient-to-l"
-            )}
-          ></div>
+          <div className="absolute right-0 h-auto w-[5%] overflow-hidden bg-gradient-to-l"></div>
 
-          <div
-            className={cn(
-              "flex flex-row justify-start gap-4",
-              " mx-auto" // remove max-w-4xl if you want the carousel to span the full width of its container
-            )}
-          >
+          <div className={cn("flex flex-row justify-start gap-4 mx-auto")}>
             {items.map((item, index) => (
               <motion.div
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{
                   opacity: 1,
                   y: 0,
@@ -127,7 +111,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                   },
                 }}
                 key={"card" + index}
-                className="last:pr-[5%] md:last:pr-[33%]   rounded-3xl"
+                className="last:pr-[5%] md:last:pr-[33%] rounded-3xl"
               >
                 {item}
               </motion.div>
@@ -174,12 +158,17 @@ export const Card = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { onCardClose, currentIndex } = useContext(CarouselContext);
 
+  const handleClose = () => {
+    setOpen(false);
+    onCardClose(index);
+  };
+
   useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         handleClose();
       }
-    }
+    };
 
     if (open) {
       document.body.style.overflow = "hidden";
@@ -192,15 +181,6 @@ export const Card = ({
   }, [open]);
 
   useOutsideClick(containerRef, () => handleClose());
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
-  };
 
   return (
     <>
@@ -219,7 +199,7 @@ export const Card = ({
               exit={{ opacity: 0 }}
               ref={containerRef}
               layoutId={layout ? `card-${card.title}` : undefined}
-              className="max-w-5xl mx-auto bg-white dark:bg-neutral-900 h-fit  my-10 p-4 rounded-3xl relative"
+              className="max-w-5xl mx-auto bg-white dark:bg-neutral-900 h-fit my-10 p-4 rounded-3xl relative"
             >
               <button
                 className="sticky top-4 h-8 w-8 right-0 ml-auto bg-black dark:bg-white rounded-full flex items-center justify-center"
@@ -227,21 +207,22 @@ export const Card = ({
               >
                 <IconX className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
               </button>
-              <div className="">{content}</div>
+              <div>{content}</div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
-        onClick={handleOpen}
+        onClick={() => setOpen(true)}
         className="rounded-3xl bg-gray-100 dark:bg-neutral-900 aspect-square sm:aspect-[4/3] w-fit min-h-[15rem] sm:min-h-[30rem] overflow-hidden flex flex-col items-start justify-start relative z-10"
       >
-        <div className="absolute bb h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
+        <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
         <div className="relative z-40 p-8">
           <motion.p
             layoutId={layout ? `title-${card.title}` : undefined}
-            className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
+            className="text-white text-xl md:text-3xl font-semibold max-w-xs text-left font-sans mt-2"
           >
             {card.title}
           </motion.p>
@@ -255,16 +236,15 @@ export const Card = ({
         <div className="absolute bottom-0 left-0 flex justify-between items-center w-full z-40 h-fit p-8">
           <motion.p
             layoutId={layout ? `views-${views}` : undefined}
-            className="text-white text-sm  gap-2 flex justify-center items-center font-medium font-sans text-left"
+            className="text-white text-sm gap-2 flex items-center font-medium font-sans"
           >
             <EyeIcon className="w-5 h-5 mr-1" /> {views}
           </motion.p>
           <motion.p
             layoutId={layout ? `downloads-${downloads}` : undefined}
-            className="text-white text-sm gap-2 flex justify-center items-center font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
+            className="text-white text-sm gap-2 flex items-center font-semibold font-sans"
           >
-            <DownloadIcon className="w-5 h-5 mr-1" />
-            {downloads}
+            <DownloadIcon className="w-5 h-5 mr-1" /> {downloads}
           </motion.p>
         </div>
       </motion.button>
@@ -295,7 +275,7 @@ export const BlurImage = ({
       loading="lazy"
       decoding="async"
       blurDataURL={typeof src === "string" ? src : undefined}
-      alt={alt ? alt : "Background of a beautiful view"}
+      alt={alt ?? "Background of a beautiful view"}
       {...rest}
     />
   );

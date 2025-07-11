@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "@/components/Navbar";
+import Image from 'next/image';
 
 export default function AvatarGenerator() {
   const [prompt, setPrompt] = React.useState("");
@@ -49,7 +50,9 @@ export default function AvatarGenerator() {
         {image && (
           <div className="mt-6 flex flex-col items-center">
             <div className="w-48 h-48 rounded-2xl bg-gradient-to-br from-indigo-100 via-white to-pink-100 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center shadow-lg border-4 border-indigo-200 dark:border-indigo-700">
-              <img src={image} alt="AI Avatar" className="w-40 h-40 object-contain rounded-xl drop-shadow-2xl" />
+             
+         <Image src={avatarUrl} alt="Preview" width={200} height={200} />
+
             </div>
             <button
               className="mt-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition text-center cursor-pointer"
