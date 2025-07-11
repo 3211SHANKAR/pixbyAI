@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ImageIcon } from "lucide-react";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
@@ -71,7 +72,7 @@ function Page() {
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-    } catch (e) {
+    } catch {
       alert("Download failed.");
     }
   };
@@ -130,11 +131,14 @@ function Page() {
 
           {isImage && (
             <div className="flex flex-col justify-center items-center gap-6 rounded-lg">
-              <img
-                loading="lazy"
-                className="result-image shadow-lg shadow-cyan-200/10 rounded-lg max-w-xs max-h-80 object-contain bg-white dark:bg-gray-900 border-2 border-indigo-200 dark:border-indigo-700"
+              ...
+              <Image
                 src={result}
-                alt="result"
+                alt="Generated"
+                width={400} // Or whatever is appropriate
+                height={400}
+                className="..."
+                unoptimized // Only if the image is SVG or external and not easily optimized
               />
               <button
                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition"
